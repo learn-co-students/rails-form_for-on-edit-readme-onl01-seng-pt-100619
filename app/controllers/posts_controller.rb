@@ -25,7 +25,10 @@ class PostsController < ApplicationController
 
 	def update
 	  @post = Post.find(params[:id])
-	  @post.update(title: params[:title], description: params[:description])
+	#   @post.update(title: params[:title], description: params[:description])
+
+	#we needed to change our update method, because our params look different, now that we're using form_for
+	@post.update(params.require(:post).permit(:title, :description))
 	  redirect_to post_path(@post)
 	end
 end
